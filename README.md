@@ -3,7 +3,6 @@
 ## 目录结构
 
 ```
-test/
 ├── a_model_wrapper.py      # 模型封装脚本
 ├── b_test_script.py        # 简单测试脚本
 ├── c_single_test.py        # 单次测试脚本（支持自定义提示词）
@@ -11,11 +10,15 @@ test/
 ├── e_performance.py        # 性能测试脚本（模型对比）
 ├── f_context_test.py       # 上下文大小测试脚本
 ├── g_temperature_test.py   # 温度参数测试脚本
-├── top_p_test.py          # top_p参数测试脚本
+├── h_top_p_test.py         # top_p参数测试脚本
+├── i_top_k_test.py         # top_k参数测试脚本
 ├── e_report/              # 性能测试报告目录
 ├── f_report/              # 上下文测试报告目录
 ├── g_report/              # 温度测试报告目录
 ├── h_report/              # top_p测试报告目录
+├── i_report/              # top_k测试报告目录
+├── LICENSE                # MIT License文件
+├── COMMERCIAL_LICENSE     # 商业使用许可证文件
 └── README.md              # 说明文档
 ```
 
@@ -165,9 +168,6 @@ python d_interactive_test.py
 ### 1. 运行简单测试
 
 ```bash
-# 进入test目录
-cd test
-
 # 运行b_test_script.py
 python b_test_script.py
 ```
@@ -175,9 +175,6 @@ python b_test_script.py
 ### 2. 运行单次测试（支持自定义提示词）
 
 ```bash
-# 进入test目录
-cd test
-
 # 运行c_single_test.py
 python c_single_test.py
 
@@ -188,9 +185,6 @@ cat c_report.md
 ### 3. 运行交互式测试
 
 ```bash
-# 进入test目录
-cd test
-
 # 运行d_interactive_test.py
 python d_interactive_test.py
 
@@ -200,9 +194,6 @@ python d_interactive_test.py
 ### 4. 运行性能测试（模型对比）
 
 ```bash
-# 进入test目录
-cd test
-
 # 运行e_performance.py
 python e_performance.py
 
@@ -214,9 +205,6 @@ cat e_report/performance_report_full.md
 ### 5. 运行上下文大小测试
 
 ```bash
-# 进入test目录
-cd test
-
 # 运行f_context_test.py
 python f_context_test.py
 
@@ -228,9 +216,6 @@ cat f_report/context_test_report_full.md
 ### 6. 运行温度参数测试
 
 ```bash
-# 进入test目录
-cd test
-
 # 运行g_temperature_test.py
 python g_temperature_test.py
 
@@ -242,15 +227,23 @@ cat g_report/temperature_test_report_full.md
 ### 7. 运行 top_p 参数测试
 
 ```bash
-# 进入test目录
-cd test
-
 # 运行h_top_p_test.py
 python h_top_p_test.py
 
 # 查看 top_p 测试报告
 ls h_report/
 cat h_report/top_p_test_report_full.md
+```
+
+### 8. 运行 top_k 参数测试
+
+```bash
+# 运行i_top_k_test.py
+python i_top_k_test.py
+
+# 查看 top_k 测试报告
+ls i_report/
+cat i_report/top_k_test_report_full.md
 ```
 
 ## 注意事项
@@ -265,3 +258,18 @@ cat h_report/top_p_test_report_full.md
 4. 生成的测试报告保存在各自的报告目录中
 5. 报告文件会自动添加编号，避免覆盖之前的报告
 6. 使用conda环境：`conda activate ollama`
+
+## 许可证
+
+本项目采用双许可证模式：
+
+1. **个人和非商业使用**：使用 MIT License，免费开源
+2. **商业使用**：需要联系作者获取商业许可证，可能需要支付费用
+
+### 联系方式
+- 邮箱：992456388@qq.com
+- GitHub：Sheldon-Yu
+
+### 许可证文件
+- [LICENSE](LICENSE)：MIT License 详细文本
+- [COMMERCIAL_LICENSE](COMMERCIAL_LICENSE)：商业使用许可证详细条款
