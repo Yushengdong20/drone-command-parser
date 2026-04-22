@@ -263,3 +263,18 @@ python test_drone_commands.py
 - **增加参数验证**：对输入参数进行更严格的验证
 - **添加API接口**：提供HTTP API接口供其他系统调用
 - **支持多语言指令**：扩展支持英文等其他语言的指令解析
+
+## 许可证
+
+本项目采用双许可证模式：
+
+1. **个人和非商业使用**：使用 MIT License，免费开源
+2. **商业使用**：需要联系作者获取商业许可证，可能需要支付费用
+
+### 联系方式
+- 邮箱：992456388@qq.com
+- GitHub：Sheldon-Yu
+
+### 许可证文件
+- [LICENSE](LICENSE)：MIT License 详细文本
+- [COMMERCIAL_LICENSE](COMMERCIAL_LICENSE)：商业使用许可证详细条款
