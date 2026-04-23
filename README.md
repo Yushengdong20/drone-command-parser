@@ -17,7 +17,7 @@
 ├── g_report/              # 温度测试报告目录
 ├── h_report/              # top_p测试报告目录
 ├── i_report/              # top_k测试报告目录
-├── LICENSE                # MIT License文件
+├── LICENSE                # GPLv3 License文件
 ├── COMMERCIAL_LICENSE     # 商业使用许可证文件
 └── README.md              # 说明文档
 ```
