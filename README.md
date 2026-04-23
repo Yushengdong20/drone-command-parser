@@ -263,7 +263,7 @@ cat i_report/top_k_test_report_full.md
 
 本项目采用双许可证模式：
 
-1. **个人和非商业使用**：使用 MIT License，免费开源
+1. **个人和非商业使用**：使用 GPLv3 License，免费开源
 2. **商业使用**：需要联系作者获取商业许可证，可能需要支付费用
 
 ### 联系方式
@@ -271,5 +271,5 @@ cat i_report/top_k_test_report_full.md
 - GitHub：Sheldon-Yu
 
 ### 许可证文件
-- [LICENSE](LICENSE)：MIT License 详细文本
+- [LICENSE](LICENSE)：GPLv3 License 详细文本
 - [COMMERCIAL_LICENSE](COMMERCIAL_LICENSE)：商业使用许可证详细条款
