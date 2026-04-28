@@ -1,4 +1,6 @@
 import json
+import redis
+import time
 from a_model_wrapper import get_model_output
 
 # 默认提示词
@@ -116,18 +118,48 @@ def process_model_output(model_output):
 
 def send_to_redis(command):
     """
-    模拟发送指令到Redis
+    发送指令到Redis队列（FIFO）
     
     Args:
         command (dict or list): 要发送的指令
     """
-    if isinstance(command, list):
-        # 复合指令，逐一发送
-        for i, cmd in enumerate(command):
-            print(f"步骤 {i+1}: redis-cli set drone_command '{json.dumps(cmd)}'")
-    else:
-        # 单个指令，直接发送
-        print(f"redis-cli set drone_command '{json.dumps(command)}'")
+    try:
+        r = redis.Redis(
+            host='localhost',
+            port=6379,
+            db=0,
+            decode_responses=True
+        )
+        r.ping()
+        
+        if isinstance(command, list):
+            # 复合指令，逐一发送到队列
+            for i, cmd in enumerate(command):
+                cmd_with_metadata = {
+                    "command": cmd,
+                    "timestamp": time.time(),
+                    "sequence": i
+                }
+                # 使用 rpush 添加到队列尾部，实现 FIFO
+                r.rpush("drone_command_queue", json.dumps(cmd_with_metadata))
+                print(f"[OK] Added command {i+1} to queue")
+        else:
+            # 单个指令，直接发送到队列
+            cmd_with_metadata = {
+                "command": command,
+                "timestamp": time.time(),
+                "sequence": 0
+            }
+            r.rpush("drone_command_queue", json.dumps(cmd_with_metadata))
+            print("[OK] Added command to queue")
+    except redis.ConnectionError:
+        # 连接失败时使用模拟模式
+        print("[ERROR] Failed to connect to Redis. Using mock mode.")
+        if isinstance(command, list):
+            for i, cmd in enumerate(command):
+                print(f"[MOCK] Would add command {i+1} to queue: {json.dumps(cmd)}")
+        else:
+            print(f"[MOCK] Would add command to queue: {json.dumps(command)}")
 
 
 def test_single_command(command_text, model="qwen3.5", options=None, prompt=None):
@@ -160,8 +192,8 @@ def test_single_command(command_text, model="qwen3.5", options=None, prompt=None
         print("处理后的指令:")
         print(json.dumps(processed_output, indent=2))
         
-        # 模拟发送到Redis
-        print("\n模拟发送到Redis:")
+        # 发送到Redis队列
+        print("\n发送到Redis队列:")
         send_to_redis(processed_output)
     
     print("-----------------")
@@ -180,11 +212,11 @@ if __name__ == "__main__":
 # 测试单个指令
     print(f"使用提示词：\n{DEFAULT_PROMPT}")
     print(f"使用模型配置：\n{options}")
-    # test_single_command("起飞", prompt=DEFAULT_PROMPT, options=options)
+    # test_single_command("起飞2米", prompt=DEFAULT_PROMPT, options=options)
     # test_single_command("降落", prompt=DEFAULT_PROMPT, options=options)
-    # test_single_command("向后2m", prompt=DEFAULT_PROMPT, options=options)
-    test_single_command("悬停", prompt=DEFAULT_PROMPT, options=options)
+    # test_single_command("向前3m", prompt=DEFAULT_PROMPT, options=options)
+    # test_single_command("悬停", prompt=DEFAULT_PROMPT, options=options)
 
     # 测试复合指令
-    # test_single_command("起飞，向后2m，然后降落", prompt=DEFAULT_PROMPT, options=options)
-    # test_single_command("起飞到2米，然后向前飞1米，最后降落", prompt=DEFAULT_PROMPT, options=options)
+    test_single_command("起飞，向后2m，然后降落", prompt=DEFAULT_PROMPT, options=options)
+    test_single_command("起飞到2米，然后向前飞1米，最后降落", prompt=DEFAULT_PROMPT, options=options)

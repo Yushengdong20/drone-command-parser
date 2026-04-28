@@ -11,7 +11,7 @@ def run_interactive_test():
         'main_gpu': 0,
         'tensor_split': [1, 0],
         # 'num_ctx': 2048,
-        'num_ctx': 4096,
+        'num_ctx': 16384,
         'temperature': 0.0,
         'top_p': 0.1,
         'max_new_tokens': 500
